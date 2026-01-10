@@ -126,20 +126,26 @@ export default function AppPage() {
     setChatLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: [{ role: "user", content }]
-        })
-      });
+const res = await fetch("/api/chat", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    messages: [{ role: "user", content }]
+  })
+});
 
-      const data = await res.json();
+const data = await res.json();
 
-      const replyText: string =
-        typeof data.reply === "string"
-          ? data.reply
-          : "YAI could not generate a reply.";
+let replyText: string;
+
+if (typeof data.reply === "string") {
+  replyText = data.reply;
+} else if (typeof data.error === "string") {
+  replyText = `YAI error: ${data.error}`;
+} else {
+  replyText = "YAI could not generate a reply.";
+}
+
 
       const assistantMessage: ChatMessage = {
         id: `a-${Date.now()}`,
