@@ -1,4 +1,4 @@
-
+/* RESET بسيط */
 *,
 *::before,
 *::after {
@@ -23,11 +23,525 @@ body {
   height: 100%;
 }
 
+/* ---------- AUTH SCREEN ---------- */
+
+.yai-auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.yai-auth-card {
+  width: 100%;
+  max-width: 460px;
+  background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+  border-radius: 24px;
+  border: 1px solid #1f2937;
+  padding: 24px 24px 20px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.yai-auth-header {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.yai-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.yai-logo-mark {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 20% 0, #22c55e, #0ea5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: #020617;
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.9);
+}
+
+.yai-logo-text-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.yai-logo-text-sub {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.yai-auth-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.yai-auth-subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.yai-auth-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: #020617;
+  border: 1px solid #1f2937;
+  align-self: flex-start;
+}
+
+.yai-auth-toggle button {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.yai-auth-toggle button.active {
+  background: linear-gradient(to right, #22c55e, #0ea5e9);
+  color: #020617;
+  font-weight: 500;
+}
+
+.yai-auth-error {
+  font-size: 12px;
+  color: #f97373;
+  background: rgba(127, 29, 29, 0.4);
+  border-radius: 10px;
+  padding: 6px 10px;
+  border: 1px solid #b91c1c;
+}
+
+.yai-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.yai-auth-label {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 2px;
+}
+
+.yai-auth-input {
+  width: 100%;
+  padding: 7px 9px;
+  border-radius: 8px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+.yai-auth-input:focus {
+  outline: 1px solid #22c55e;
+  border-color: #22c55e;
+}
+
+/* ---------- COMMON BUTTONS / INPUTS ---------- */
+
+.yai-button-primary {
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(to right, #22c55e, #0ea5e9);
+  color: #020617;
+  font-size: 13px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.yai-button-primary:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.yai-button-ghost {
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 12px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.yai-input {
+  width: 100%;
+  padding: 7px 9px;
+  border-radius: 8px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+.yai-input:focus {
+  outline: 1px solid #0ea5e9;
+  border-color: #0ea5e9;
+}
+
+/* ---------- SHELL ---------- */
+
 .yai-shell {
   min-height: 100vh;
   display: flex;
-  align-items: stretch;
-  justify-content: stretch;
+  gap: 16px;
+  padding: 20px;
 }
 
-/* ... CSS truncated for brevity in this cell ... */
+.yai-sidebar {
+  width: 260px;
+  background: rgba(15, 23, 42, 0.97);
+  border-radius: 22px;
+  border: 1px solid #1f2937;
+  padding: 16px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+}
+
+.yai-nav-section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #6b7280;
+  margin: 12px 2px 6px;
+}
+
+.yai-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.yai-nav-item {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #e5e7eb;
+  padding: 8px 9px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.yai-nav-item:hover {
+  background: rgba(15, 23, 42, 0.9);
+  border-color: #1f2937;
+}
+
+.yai-nav-item.active {
+  background: radial-gradient(circle at top left, #22c55e22, #0ea5e922);
+  border-color: #22c55e;
+}
+
+.yai-nav-item-icon {
+  font-size: 15px;
+}
+
+.yai-nav-label {
+  flex: 1;
+  text-align: left;
+}
+
+.yai-nav-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  color: #9ca3af;
+}
+
+/* ---------- SIDEBAR FOOTER ---------- */
+
+.yai-sidebar-footer {
+  margin-top: 16px;
+  border-top: 1px solid #1f2937;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.yai-sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yai-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: linear-gradient(to bottom right, #22c55e, #0ea5e9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #020617;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.yai-sidebar-user-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.yai-sidebar-user-name {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.yai-sidebar-user-email {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.yai-sidebar-pill {
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+/* ---------- MAIN AREA ---------- */
+
+.yai-main {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.98);
+  border-radius: 22px;
+  border: 1px solid #1f2937;
+  padding: 16px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
+}
+
+.yai-main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.yai-main-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.yai-main-subtitle {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.yai-main-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.yai-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+}
+
+.yai-tag {
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid #1f2937;
+  font-size: 10px;
+}
+
+.yai-main-body {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.3fr);
+  gap: 10px;
+}
+
+/* ---------- PANELS ---------- */
+
+.yai-panel {
+  background: radial-gradient(circle at top left, #020617, #020617 60%);
+  border-radius: 16px;
+  border: 1px solid #1f2937;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.yai-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.yai-panel-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.yai-panel-badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid #1f2937;
+  color: #9ca3af;
+}
+
+/* ---------- CHAT ---------- */
+
+.yai-chat-history {
+  flex: 1;
+  min-height: 150px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.yai-chat-message {
+  padding: 6px 9px;
+  border-radius: 10px;
+  max-width: 100%;
+  line-height: 1.4;
+}
+
+.yai-chat-message.user {
+  align-self: flex-end;
+  background: #0f172a;
+  border-radius: 12px 12px 2px 12px;
+}
+
+.yai-chat-message.assistant {
+  align-self: flex-start;
+  background: #020617;
+  border: 1px solid #1f2937;
+  border-radius: 12px 12px 12px 2px;
+}
+
+.yai-chat-input-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.yai-textarea {
+  width: 100%;
+  min-height: 70px;
+  max-height: 120px;
+  resize: vertical;
+  padding: 8px 9px;
+  border-radius: 10px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+/* ---------- IMAGE LAB ---------- */
+
+.yai-image-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.yai-image-prompt {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 8px 9px;
+  border-radius: 10px;
+  border: 1px solid #1f2937;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 13px;
+}
+
+.yai-image-preview {
+  margin-top: 4px;
+  border-radius: 12px;
+  border: 1px dashed #1f2937;
+  min-height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.yai-image-preview img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ---------- ACCOUNT ---------- */
+
+.yai-account-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.yai-account-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+  .yai-shell {
+    flex-direction: column;
+  }
+  .yai-sidebar {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  .yai-main-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
