@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -189,100 +188,394 @@ export default function AppPage() {
     }
   };
 
-if (!user) {
-  return (
-    <div className="yai-auth-screen" style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-      flexDirection: "column",
-      gap: "12px"
-    }}>
-      <h1 style={{ fontSize: "26px", marginBottom: "5px" }}>
-        Welcome to YAI 🚀
-      </h1>
-
-      <div style={{
-        background: "#0f172a",
-        padding: "20px",
-        borderRadius: "12px",
-        width: "300px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        border: "1px solid #334155"
-      }}>
-        
-        {authMode === "register" && (
-          <input
-            placeholder="Full name"
-            value={authName}
-            onChange={(e) => setAuthName(e.target.value)}
-            style={{ padding: "8px", borderRadius: "6px" }}
-          />
-        )}
-
-        <input
-          placeholder="Email"
-          value={authEmail}
-          onChange={(e) => setAuthEmail(e.target.value)}
-          style={{ padding: "8px", borderRadius: "6px" }}
-        />
-
-        <input
-          placeholder="Password"
-          type="password"
-          value={authPassword}
-          onChange={(e) => setAuthPassword(e.target.value)}
-          style={{ padding: "8px", borderRadius: "6px" }}
-        />
-
-        {authError && (
-          <div style={{ color: "salmon", fontSize: "12px" }}>
-            {authError}
+  // ---------- AUTH SCREEN ----------
+  if (!user) {
+    return (
+      <div className="yai-auth-screen">
+        <div className="yai-auth-card">
+          <div className="yai-auth-header">
+            <div className="yai-logo">
+              <div className="yai-logo-mark">Y</div>
+              <div>
+                <div className="yai-logo-text-title">YAI</div>
+                <div className="yai-logo-text-sub">
+                  Personal AI assistant beta
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="yai-auth-title">
+                {authMode === "register"
+                  ? "Create your YAI account"
+                  : "Welcome back to YAI"}
+              </div>
+              <div className="yai-auth-subtitle">
+                Sign in with your email. Google login will be added later.
+              </div>
+            </div>
           </div>
-        )}
 
-        <button
-          onClick={handleAuthSubmit}
-          disabled={authLoading}
-          style={{
-            padding: "8px",
-            borderRadius: "6px",
-            background: "#22c55e",
-            color: "black",
-            cursor: "pointer",
-            marginTop: "6px"
-          }}
-        >
-          {authMode === "register" ? "Create account" : "Sign in"}
-        </button>
+          <div className="yai-auth-toggle">
+            <button
+              type="button"
+              className={authMode === "register" ? "active" : ""}
+              onClick={() => setAuthMode("register")}
+            >
+              Sign up
+            </button>
+            <button
+              type="button"
+              className={authMode === "login" ? "active" : ""}
+              onClick={() => setAuthMode("login")}
+            >
+              Sign in
+            </button>
+          </div>
 
-        <button
-          onClick={() => setAuthMode(authMode === "register" ? "login" : "register")}
-          style={{
-            fontSize: "12px",
-            background: "transparent",
-            color: "#38bdf8",
-            cursor: "pointer",
-            border: "none",
-            marginTop: "4px"
-          }}
-        >
-          {authMode === "register"
-            ? "Already have an account? Sign in"
-            : "No account? Create one"}
-        </button>
+          {authError && <div className="yai-auth-error">{authError}</div>}
+
+          <div className="yai-auth-form">
+            {authMode === "register" && (
+              <div>
+                <div className="yai-auth-label">Full name</div>
+                <input
+                  className="yai-auth-input"
+                  value={authName}
+                  onChange={e => setAuthName(e.target.value)}
+                  placeholder="Example: Yazan Nasrallah"
+                />
+              </div>
+            )}
+            <div>
+              <div className="yai-auth-label">Email</div>
+              <input
+                className="yai-auth-input"
+                value={authEmail}
+                onChange={e => setAuthEmail(e.target.value)}
+                placeholder="you@example.com"
+                type="email"
+              />
+            </div>
+            <div>
+              <div className="yai-auth-label">Password</div>
+              <input
+                className="yai-auth-input"
+                value={authPassword}
+                onChange={e => setAuthPassword(e.target.value)}
+                placeholder="********"
+                type="password"
+              />
+            </div>
+          </div>
+
+          <button
+            type="button"
+            disabled={authLoading}
+            onClick={handleAuthSubmit}
+            className="yai-button-primary"
+          >
+            {authLoading
+              ? "Processing…"
+              : authMode === "register"
+              ? "Create account"
+              : "Sign in"}
+          </button>
+
+          <div style={{ fontSize: 10, color: "#9ca3af" }}>
+            In this beta, your account is stored only in your browser (no
+            external database yet).
+          </div>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
+  // ---------- MAIN UI AFTER LOGIN ----------
+  const initials =
+    user.name
+      .split(" ")
+      .map(p => p[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "Y";
 
   return (
     <div className="yai-shell">
-      YAI main UI (shortened in this cell)
+      <aside className="yai-sidebar">
+        <div className="yai-logo">
+          <div className="yai-logo-mark">Y</div>
+          <div>
+            <div className="yai-logo-text-title">YAI</div>
+            <div className="yai-logo-text-sub">Beta workspace</div>
+          </div>
+        </div>
+
+        <div>
+          <div className="yai-nav-section-title">Workspace</div>
+          <div className="yai-nav-list">
+            <button
+              type="button"
+              className={
+                "yai-nav-item" + (activeTab === "chat" ? " active" : "")
+              }
+              onClick={() => setActiveTab("chat")}
+            >
+              <span className="yai-nav-item-icon">💬</span>
+              <span className="yai-nav-label">Chat</span>
+              <span className="yai-nav-badge">YAI model</span>
+            </button>
+            <button
+              type="button"
+              className={
+                "yai-nav-item" + (activeTab === "images" ? " active" : "")
+              }
+              onClick={() => setActiveTab("images")}
+            >
+              <span className="yai-nav-item-icon">🖼️</span>
+              <span className="yai-nav-label">Image Lab</span>
+            </button>
+            <button
+              type="button"
+              className={
+                "yai-nav-item" + (activeTab === "account" ? " active" : "")
+              }
+              onClick={() => setActiveTab("account")}
+            >
+              <span className="yai-nav-item-icon">👤</span>
+              <span className="yai-nav-label">Account</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="yai-sidebar-footer">
+          <div className="yai-sidebar-user">
+            <div className="yai-avatar">{initials}</div>
+            <div className="yai-sidebar-user-main">
+              <div className="yai-sidebar-user-name">{user.name}</div>
+              <div className="yai-sidebar-user-email">{user.email}</div>
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: 6 }}>
+            <button
+              type="button"
+              className="yai-sidebar-pill"
+              onClick={handleLogout}
+            >
+              Log out
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <main className="yai-main">
+        <header className="yai-main-header">
+          <div>
+            <div className="yai-main-title">
+              {activeTab === "chat"
+                ? "Chat with YAI"
+                : activeTab === "images"
+                ? "Image generation lab"
+                : "Account & settings"}
+            </div>
+            <div className="yai-main-subtitle">
+              {activeTab === "chat"
+                ? "Ask anything. YAI will reply in natural language."
+                : activeTab === "images"
+                ? "Describe an image and YAI will try to create it."
+                : "Manage your profile in this beta version."}
+            </div>
+          </div>
+          <div className="yai-main-header-right">
+            <div className="yai-dot" />
+            <span>Connected</span>
+            <span className="yai-tag">Beta</span>
+          </div>
+        </header>
+
+        <section className="yai-main-body">
+          {activeTab === "chat" && (
+            <div className="yai-panel">
+              <div className="yai-panel-header">
+                <div className="yai-panel-title">Conversation</div>
+                <div className="yai-panel-badge">
+                  Messages: {chatMessages.length}
+                </div>
+              </div>
+              <div className="yai-chat-history">
+                {chatMessages.length === 0 && (
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: "#9ca3af",
+                      padding: "4px 2px"
+                    }}
+                  >
+                    Start by asking YAI about your project, ideas, or anything
+                    else.
+                  </div>
+                )}
+                {chatMessages.map(msg => (
+                  <div
+                    key={msg.id}
+                    className={
+                      "yai-chat-message " +
+                      (msg.role === "user" ? "user" : "assistant")
+                    }
+                  >
+                    {msg.content}
+                  </div>
+                ))}
+              </div>
+              <div className="yai-chat-input-row">
+                <textarea
+                  className="yai-textarea"
+                  placeholder="Write a message to YAI..."
+                  value={chatInput}
+                  onChange={e => setChatInput(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="yai-button-primary"
+                  disabled={chatLoading || !chatInput.trim()}
+                  onClick={handleSendChat}
+                >
+                  {chatLoading ? "Thinking…" : "Send"}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "images" && (
+            <div className="yai-panel">
+              <div className="yai-panel-header">
+                <div className="yai-panel-title">Image Lab</div>
+                <div className="yai-panel-badge">
+                  Experimental image generation
+                </div>
+              </div>
+              <div className="yai-image-panel-body">
+                <textarea
+                  className="yai-image-prompt"
+                  placeholder="Describe the image you want YAI to generate..."
+                  value={imagePrompt}
+                  onChange={e => setImagePrompt(e.target.value)}
+                />
+                <div style={{ display: "flex", gap: 8 }}>
+                  <button
+                    type="button"
+                    className="yai-button-primary"
+                    disabled={imageLoading || !imagePrompt.trim()}
+                    onClick={handleGenerateImage}
+                  >
+                    {imageLoading ? "Creating…" : "Generate image"}
+                  </button>
+                  <button
+                    type="button"
+                    className="yai-button-ghost"
+                    onClick={() => {
+                      setImagePrompt("");
+                      setImageUrl(null);
+                    }}
+                  >
+                    Clear
+                  </button>
+                </div>
+                <div className="yai-image-preview">
+                  {imageLoading && (
+                    <div style={{ fontSize: 12, color: "#9ca3af" }}>
+                      YAI is generating your image…
+                    </div>
+                  )}
+                  {!imageLoading && imageUrl && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={imageUrl} alt="Generated by YAI" />
+                  )}
+                  {!imageLoading && !imageUrl && (
+                    <div style={{ fontSize: 12, color: "#6b7280" }}>
+                      No image yet. Enter a description and click{" "}
+                      <strong>Generate image</strong>.
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "account" && (
+            <div className="yai-panel">
+              <div className="yai-panel-header">
+                <div className="yai-panel-title">Account</div>
+                <div className="yai-panel-badge">Local-only beta</div>
+              </div>
+              <div className="yai-account-body">
+                <div className="yai-account-row">
+                  <div>Name</div>
+                  <input
+                    className="yai-input"
+                    value={user.name}
+                    onChange={e => {
+                      const updated = { ...user, name: e.target.value };
+                      setUser(updated);
+                      saveUser(updated);
+                    }}
+                  />
+                </div>
+                <div className="yai-account-row">
+                  <div>Email</div>
+                  <input
+                    className="yai-input"
+                    value={user.email}
+                    onChange={e => {
+                      const updated = { ...user, email: e.target.value };
+                      setUser(updated);
+                      saveUser(updated);
+                    }}
+                  />
+                </div>
+                <div className="yai-account-row">
+                  <div>Change password (local only)</div>
+                  <input
+                    className="yai-input"
+                    type="password"
+                    placeholder="New password"
+                    onChange={e => {
+                      const updated = { ...user, password: e.target.value };
+                      setUser(updated);
+                      saveUser(updated);
+                    }}
+                  />
+                  <div style={{ fontSize: 10, color: "#9ca3af" }}>
+                    This beta stores your password only in your browser. No
+                    external database is connected yet.
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="yai-panel">
+            <div className="yai-panel-header">
+              <div className="yai-panel-title">Notes</div>
+              <div className="yai-panel-badge">Beta information</div>
+            </div>
+            <div style={{ fontSize: 12, color: "#9ca3af", lineHeight: 1.5 }}>
+              <p>
+                This is a beta interface of <strong>YAI</strong>. In the next
+                iterations we can:
+              </p>
+              <ul style={{ paddingLeft: 18, margin: 0 }}>
+                <li>Connect a real database for accounts and history.</li>
+                <li>Add chat history with multiple conversations.</li>
+                <li>
+                  Add usage limits and subscription plans (free vs plus), as you
+                  requested.
+                </li>
+                <li>Integrate Google / Gmail login.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
