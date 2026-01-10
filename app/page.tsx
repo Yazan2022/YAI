@@ -189,14 +189,96 @@ export default function AppPage() {
     }
   };
 
-  if (!user) {
-    return (
-      <div className="yai-auth-screen">
-        {/* Auth UI here (shortened in this cell) */}
-        Auth screen
+if (!user) {
+  return (
+    <div className="yai-auth-screen" style={{
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+      flexDirection: "column",
+      gap: "12px"
+    }}>
+      <h1 style={{ fontSize: "26px", marginBottom: "5px" }}>
+        Welcome to YAI 🚀
+      </h1>
+
+      <div style={{
+        background: "#0f172a",
+        padding: "20px",
+        borderRadius: "12px",
+        width: "300px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+        border: "1px solid #334155"
+      }}>
+        
+        {authMode === "register" && (
+          <input
+            placeholder="Full name"
+            value={authName}
+            onChange={(e) => setAuthName(e.target.value)}
+            style={{ padding: "8px", borderRadius: "6px" }}
+          />
+        )}
+
+        <input
+          placeholder="Email"
+          value={authEmail}
+          onChange={(e) => setAuthEmail(e.target.value)}
+          style={{ padding: "8px", borderRadius: "6px" }}
+        />
+
+        <input
+          placeholder="Password"
+          type="password"
+          value={authPassword}
+          onChange={(e) => setAuthPassword(e.target.value)}
+          style={{ padding: "8px", borderRadius: "6px" }}
+        />
+
+        {authError && (
+          <div style={{ color: "salmon", fontSize: "12px" }}>
+            {authError}
+          </div>
+        )}
+
+        <button
+          onClick={handleAuthSubmit}
+          disabled={authLoading}
+          style={{
+            padding: "8px",
+            borderRadius: "6px",
+            background: "#22c55e",
+            color: "black",
+            cursor: "pointer",
+            marginTop: "6px"
+          }}
+        >
+          {authMode === "register" ? "Create account" : "Sign in"}
+        </button>
+
+        <button
+          onClick={() => setAuthMode(authMode === "register" ? "login" : "register")}
+          style={{
+            fontSize: "12px",
+            background: "transparent",
+            color: "#38bdf8",
+            cursor: "pointer",
+            border: "none",
+            marginTop: "4px"
+          }}
+        >
+          {authMode === "register"
+            ? "Already have an account? Sign in"
+            : "No account? Create one"}
+        </button>
       </div>
-    );
-  }
+    </div>
+  );
+}
+
 
   return (
     <div className="yai-shell">
